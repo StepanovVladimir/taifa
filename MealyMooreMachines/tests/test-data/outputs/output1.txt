@@ -1,0 +1,2 @@
+q0y1 q0y1 q2y2 
+q2y2 q2y2 q1y2 
