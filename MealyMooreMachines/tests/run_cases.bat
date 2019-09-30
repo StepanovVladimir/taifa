@@ -15,6 +15,10 @@ echo -- Run #1 case --
 if ERRORLEVEL 1 goto err 
 echo -- Run #2 case --
 
+%PROGRAM% %INPUTS_DIR%\input3.txt %OUTPUTS_DIR%\output3.txt
+if ERRORLEVEL 1 goto err 
+echo -- Run #3 case --
+
 echo ----------------
 exit 0
 

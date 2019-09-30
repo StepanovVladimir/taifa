@@ -28,20 +28,21 @@ MooreMachineData TransitMealyToMoore(const MealyMachineData& mealyMachineData)
 	size_t i = 0;
 	for (auto transition : transitions)
 	{
-		newStatesMap[transition.state] = NEW_STATE_NAME + to_string(i++);
+		newStatesMap[transition.state + transition.outputSignal] = NEW_STATE_NAME + to_string(i++);
 	}
 
 	MooreMachineData mooreMachineData;
 
 	for (auto inputSignal : mealyMachineData)
 	{
-		for (auto startState : inputSignal.second)
+		for (auto transition : transitions)
 		{
-			State givenStartState = newStatesMap[startState.first];
-			State givenNewState = newStatesMap[startState.second.state];
+			State givenStartState = newStatesMap[transition.state + transition.outputSignal];
+			State newState = inputSignal.second[transition.state].state + inputSignal.second[transition.state].outputSignal;
+			State givenNewState = newStatesMap[newState];
 
 			mooreMachineData.graph[inputSignal.first][givenStartState] = givenNewState;
-			mooreMachineData.outputSignals[givenNewState] = startState.second.outputSignal;
+			mooreMachineData.outputSignals[givenStartState] = transition.outputSignal;
 		}
 	}
 

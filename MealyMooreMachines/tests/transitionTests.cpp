@@ -34,3 +34,18 @@ TEST_CASE("Test mealy to moore transition")
 
 	CHECK(output.str() == "y1 y2 \nz0 z1 \nz1 z0 \n");
 }
+
+TEST_CASE("Test mealy to moore transition 2")
+{
+	stringstream input;
+	stringstream output;
+
+	input << "q2y2 q0y1 q1y2" << endl;
+	input << "q1y1 q2y3 q0y1" << endl;
+
+	auto mealyMachineData = ReadMealyMachineData(input, 2, 3);
+	auto mooreMachineData = TransitMealyToMoore(mealyMachineData);
+	PrintMooreMachineData(mooreMachineData, output);
+
+	CHECK(output.str() == "y1 y1 y2 y2 y3 \nz3 z0 z0 z2 z2 \nz1 z4 z4 z0 z0 \n");
+}
